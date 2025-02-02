@@ -3,50 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walrus Blob Player</title>
+    <title>Walrus MP3 Playlist</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
         }
         .playlist {
             list-style: none;
             padding: 0;
+            max-width: 400px;
+            margin: auto;
         }
         .playlist li {
             padding: 10px;
             cursor: pointer;
-            background: #f4f4f4;
+            background: #ffffff;
             margin: 5px;
             border-radius: 5px;
+            transition: background 0.3s;
         }
         .playlist li:hover {
             background: #ddd;
+        }
+        .playing {
+            background: #007bff;
+            color: #fff;
+        }
+        audio {
+            width: 100%;
+            margin: 20px 0;
+        }
+        .progress-container {
+            width: 100%;
+            background: #ddd;
+            height: 5px;
+            border-radius: 5px;
+            margin: 10px auto;
+            max-width: 400px;
+            position: relative;
+        }
+        .progress-bar {
+            width: 0;
+            height: 5px;
+            background: #007bff;
+            border-radius: 5px;
+            position: absolute;
         }
     </style>
 </head>
 <body>
 
-    <h2>My Playlist</h2>
-    
-    <!-- Audio Player -->
-    <audio id="audioPlayer" controls>
-        Your browser does not support the audio element.
-    </audio>
+    <h2>My Music Playlist</h2>
 
-    <ul class="playlist">
-        <li onclick="playSong('https://your-walrus-site.com/blobs/song1.mp3')">🎵 Song 1</li>
-        <li onclick="playSong('https://your-walrus-site.com/blobs/song2.mp3')">🎵 Song 2</li>
-        <li onclick="playSong('https://your-walrus-site.com/blobs/song3.mp3')">🎵 Song 3</li>
+    <!-- Audio Player -->
+    <audio id="audioPlayer" controls></audio>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Playlist -->
+    <ul class="playlist" id="playlist">
+        <li data-src="https://your-walrus-site.com/blobs/song1.mp3">🎵 Song 1</li>
+        <li data-src="https://your-walrus-site.com/blobs/song2.mp3">🎵 Song 2</li>
+        <li data-src="https://your-walrus-site.com/blobs/song3.mp3">🎵 Song 3</li>
     </ul>
 
     <script>
-        function playSong(url) {
-            const player = document.getElementById('audioPlayer');
-            player.src = url;
+        const player = document.getElementById('audioPlayer');
+        const playlist = document.getElementById('playlist').getElementsByTagName('li');
+        const progressBar = document.getElementById('progressBar');
+
+        let currentIndex = 0;
+
+        function playSong(index) {
+            if (index < 0 || index >= playlist.length) return;
+
+            currentIndex = index;
+            let song = playlist[currentIndex];
+            let songUrl = song.getAttribute('data-src');
+            player.src = songUrl;
             player.play();
+
+            updatePlaylistHighlight();
         }
+
+        function updatePlaylistHighlight() {
+            for (let item of playlist) {
+                item.classList.remove('playing');
+            }
+            playlist[currentIndex].classList.add('playing');
+        }
+
+        function playNextSong() {
+            if (currentIndex < playlist.length - 1) {
+                playSong(currentIndex + 1);
+            }
+        }
+
+        function updateProgressBar() {
+            if (player.duration) {
+                let percent = (player.currentTime / player.duration) * 100;
+                progressBar.style.width = percent + "%";
+            }
+        }
+
+        // Event Listeners
+        player.addEventListener('ended', playNextSong);
+        player.addEventListener('timeupdate', updateProgressBar);
+
+        for (let i = 0; i < playlist.length; i++) {
+            playlist[i].addEventListener('click', () => playSong(i));
+        }
+
+        // Auto-play the first song when page loads
+        playSong(0);
     </script>
 
 </body>
 </html>
+
