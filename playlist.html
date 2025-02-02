@@ -15,6 +15,17 @@
         h2 {
             color: #333;
         }
+        .image-section {
+            max-width: 1024px;
+            max-height: 1024px;
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+        }
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
         .playlist {
             list-style: none;
             padding: 0;
@@ -85,6 +96,11 @@
 </head>
 <body>
 
+    <!-- Image Section -->
+    <div class="image-section">
+        <img src="https://your-image-url.com/image.jpg" alt="Music Playlist Cover">
+    </div>
+
     <h2>My Music Playlist</h2>
 
     <!-- Audio Player -->
@@ -136,7 +152,7 @@
 
         let currentIndex = 0;
         let shuffleMode = false;
-        let repeatMode = "all"; // "all", "one", "off"
+        let repeatMode = "all";
 
         function playSong(index) {
             if (index < 0 || index >= playlistItems.length) return;
@@ -169,7 +185,7 @@
             } else if (currentIndex < playlistItems.length - 1) {
                 playSong(currentIndex + 1);
             } else if (repeatMode === "all") {
-                playSong(0); // Loop to the first song
+                playSong(0);
             }
         }
 
@@ -178,7 +194,6 @@
             do {
                 randomIndex = Math.floor(Math.random() * playlistItems.length);
             } while (randomIndex === currentIndex);
-
             playSong(randomIndex);
         }
 
@@ -189,16 +204,9 @@
         }
 
         function toggleRepeat() {
-            if (repeatMode === "all") {
-                repeatMode = "one";
-                repeatBtn.innerHTML = "🔂 Repeat One";
-            } else if (repeatMode === "one") {
-                repeatMode = "off";
-                repeatBtn.innerHTML = "❌ No Repeat";
-            } else {
-                repeatMode = "all";
-                repeatBtn.innerHTML = "🔁 Repeat All";
-            }
+            repeatMode = repeatMode === "all" ? "one" : repeatMode === "one" ? "off" : "all";
+            repeatBtn.innerHTML = repeatMode === "all" ? "🔁 Repeat All" :
+                                  repeatMode === "one" ? "🔂 Repeat One" : "❌ No Repeat";
         }
 
         function updateProgressBar() {
@@ -218,14 +226,11 @@
         repeatBtn.addEventListener('click', toggleRepeat);
         volumeSlider.addEventListener('input', updateVolume);
 
-        for (let i = 0; i < playlistItems.length; i++) {
-            playlistItems[i].addEventListener('click', () => playSong(i));
-        }
-
         playSong(0);
     </script>
 
 </body>
 </html>
+
 
 
