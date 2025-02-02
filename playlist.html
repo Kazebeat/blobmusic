@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walrus Blob Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .playlist {
+            list-style: none;
+            padding: 0;
+        }
+        .playlist li {
+            padding: 10px;
+            cursor: pointer;
+            background: #f4f4f4;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        .playlist li:hover {
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>My Playlist</h2>
+    
+    <!-- Audio Player -->
+    <audio id="audioPlayer" controls>
+        Your browser does not support the audio element.
+    </audio>
+
+    <ul class="playlist">
+        <li onclick="playSong('https://your-walrus-site.com/blobs/song1.mp3')">🎵 Song 1</li>
+        <li onclick="playSong('https://your-walrus-site.com/blobs/song2.mp3')">🎵 Song 2</li>
+        <li onclick="playSong('https://your-walrus-site.com/blobs/song3.mp3')">🎵 Song 3</li>
+    </ul>
+
+    <script>
+        function playSong(url) {
+            const player = document.getElementById('audioPlayer');
+            player.src = url;
+            player.play();
+        }
+    </script>
+
+</body>
+</html>
