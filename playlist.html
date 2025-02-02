@@ -56,6 +56,31 @@
             border-radius: 5px;
             position: absolute;
         }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn {
+            padding: 10px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn.active {
+            background: #4caf50;
+        }
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .volume-control input {
+            width: 100px;
+        }
     </style>
 </head>
 <body>
@@ -70,41 +95,54 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
+    <!-- Controls -->
+    <div class="controls">
+        <button class="btn" id="shuffleBtn">🔀 Shuffle OFF</button>
+        <button class="btn" id="repeatBtn">🔁 Repeat All</button>
+        <div class="volume-control">
+            🔊 <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+        </div>
+    </div>
+
     <!-- Playlist -->
     <ul class="playlist" id="playlist">
-        <li data-src="https://your-walrus-site.com/blobs/zion.mp3">🎵 Song 1</li>
-        <li data-src="https://your-walrus-site.com/blobs/witcher.mp3">🎵 Song 2</li>
-        <li data-src="https://your-walrus-site.com/blobs/shibuya.mp3">🎵 Song 3</li>
-        <li data-src="https://your-walrus-site.com/blobs/trophies.mp3">🎵 Song 4</li>
-        <li data-src="https://your-walrus-site.com/blobs/threes-and-sixes.mp3">🎵 Song 5</li>
-        <li data-src="https://your-walrus-site.com/blobs/firefly.mp3">🎵 Song 6</li>
-        <li data-src="https://your-walrus-site.com/blobs/deep-end.mp3">🎵 Song 7</li>
-        <li data-src="https://your-walrus-site.com/blobs/halo.mp3">🎵 Song 8</li>
-        <li data-src="https://your-walrus-site.com/blobs/heartache.mp3">🎵 Song 9</li>
-        <li data-src="https://your-walrus-site.com/blobs/kojo-prod.kaze.mp3">🎵 Song 10</li>
-        <li data-src="https://your-walrus-site.com/blobs/love-hate.mp3">🎵 Song 11</li>
-        <li data-src="https://your-walrus-site.com/blobs/roxanne.mp3">🎵 Song 12</li>
-        <li data-src="https://your-walrus-site.com/blobs/grove-st.mp3">🎵 Song 13</li>
-        <li data-src="https://your-walrus-site.com/blobs/finale-prod.kaze-rondavinci.mp3">🎵 Song 14</li>
-        <li data-src="https://your-walrus-site.com/blobs/dream-sequence.mp3">🎵 Song 15</li>
-        <li data-src="https://your-walrus-site.com/blobs/colder-nights-prod.kaze.mp3">🎵 Song 16</li>
-        <li data-src="https://your-walrus-site.com/blobs/astro.mp3">🎵 Song 17</li>
-        <li data-src="https://your-walrus-site.com/blobs/xenon.mp3">🎵 Song 18</li>
-        
+        <li data-src="https://blobmusic.com/blobs/zion.mp3">🎵 Zion</li>
+        <li data-src="https://blobmusic.com/blobs/witcher.mp3">🎵 Witcher</li>
+        <li data-src="https://blobmusic.com/blobs/shibuya.mp3">🎵 Shibuya</li>
+        <li data-src="https://blobmusic.com/blobs/trophies.mp3">🎵 Trophies</li>
+        <li data-src="https://blobmusic.com/blobs/threes-and-sixes.mp3">🎵 Threes and Sixes</li>
+        <li data-src="https://blobmusic.com/blobs/firefly.mp3">🎵 Firefly</li>
+        <li data-src="https://blobmusic.com/blobs/deep-end.mp3">🎵 Deep End</li>
+        <li data-src="https://blobmusic.com/blobs/halo.mp3">🎵 Halo</li>
+        <li data-src="https://blobmusic.com/blobs/heartache.mp3">🎵 Heartache</li>
+        <li data-src="https://blobmusic.com/blobs/kojo-prod.kaze.mp3">🎵 Kojo (Prod. Kaze)</li>
+        <li data-src="https://blobmusic.com/blobs/love-hate.mp3">🎵 Love Hate</li>
+        <li data-src="https://blobmusic.com/blobs/roxanne.mp3">🎵 Roxanne</li>
+        <li data-src="https://blobmusic.com/blobs/grove-st.mp3">🎵 Grove St</li>
+        <li data-src="https://blobmusic.com/blobs/finale-prod.kaze-rondavinci.mp3">🎵 Finale (Prod. Kaze & Rondavinci)</li>
+        <li data-src="https://blobmusic.com/blobs/dream-sequence.mp3">🎵 Dream Sequence</li>
+        <li data-src="https://blobmusic.com/blobs/colder-nights-prod.kaze.mp3">🎵 Colder Nights (Prod. Kaze)</li>
+        <li data-src="https://blobmusic.com/blobs/astro.mp3">🎵 Astro</li>
+        <li data-src="https://blobmusic.com/blobs/xenon.mp3">🎵 Xenon</li>
     </ul>
 
     <script>
         const player = document.getElementById('audioPlayer');
-        const playlist = document.getElementById('playlist').getElementsByTagName('li');
+        const playlistItems = document.getElementById('playlist').getElementsByTagName('li');
         const progressBar = document.getElementById('progressBar');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
 
         let currentIndex = 0;
+        let shuffleMode = false;
+        let repeatMode = "all"; // "all", "one", "off"
 
         function playSong(index) {
-            if (index < 0 || index >= playlist.length) return;
+            if (index < 0 || index >= playlistItems.length) return;
 
             currentIndex = index;
-            let song = playlist[currentIndex];
+            let song = playlistItems[currentIndex];
             let songUrl = song.getAttribute('data-src');
             player.src = songUrl;
             player.play();
@@ -113,15 +151,53 @@
         }
 
         function updatePlaylistHighlight() {
-            for (let item of playlist) {
+            for (let item of playlistItems) {
                 item.classList.remove('playing');
             }
-            playlist[currentIndex].classList.add('playing');
+            playlistItems[currentIndex].classList.add('playing');
         }
 
         function playNextSong() {
-            if (currentIndex < playlist.length - 1) {
+            if (repeatMode === "one") {
+                player.currentTime = 0;
+                player.play();
+                return;
+            }
+
+            if (shuffleMode) {
+                playRandomSong();
+            } else if (currentIndex < playlistItems.length - 1) {
                 playSong(currentIndex + 1);
+            } else if (repeatMode === "all") {
+                playSong(0); // Loop to the first song
+            }
+        }
+
+        function playRandomSong() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * playlistItems.length);
+            } while (randomIndex === currentIndex);
+
+            playSong(randomIndex);
+        }
+
+        function toggleShuffle() {
+            shuffleMode = !shuffleMode;
+            shuffleBtn.classList.toggle('active', shuffleMode);
+            shuffleBtn.innerHTML = shuffleMode ? "🔀 Shuffle ON" : "🔀 Shuffle OFF";
+        }
+
+        function toggleRepeat() {
+            if (repeatMode === "all") {
+                repeatMode = "one";
+                repeatBtn.innerHTML = "🔂 Repeat One";
+            } else if (repeatMode === "one") {
+                repeatMode = "off";
+                repeatBtn.innerHTML = "❌ No Repeat";
+            } else {
+                repeatMode = "all";
+                repeatBtn.innerHTML = "🔁 Repeat All";
             }
         }
 
@@ -132,18 +208,24 @@
             }
         }
 
-        // Event Listeners
-        player.addEventListener('ended', playNextSong);
-        player.addEventListener('timeupdate', updateProgressBar);
-
-        for (let i = 0; i < playlist.length; i++) {
-            playlist[i].addEventListener('click', () => playSong(i));
+        function updateVolume() {
+            player.volume = volumeSlider.value;
         }
 
-        // Auto-play the first song when page loads
+        player.addEventListener('ended', playNextSong);
+        player.addEventListener('timeupdate', updateProgressBar);
+        shuffleBtn.addEventListener('click', toggleShuffle);
+        repeatBtn.addEventListener('click', toggleRepeat);
+        volumeSlider.addEventListener('input', updateVolume);
+
+        for (let i = 0; i < playlistItems.length; i++) {
+            playlistItems[i].addEventListener('click', () => playSong(i));
+        }
+
         playSong(0);
     </script>
 
 </body>
 </html>
+
 
