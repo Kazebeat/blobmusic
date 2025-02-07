@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blob Beats - Windows 94 Edition</title>
+    <style>
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://your-font-url.com/pixel-font.woff2') format('woff2');
+        }
+
+        body {
+            font-family: 'Pixelated', Arial, sans-serif;
+            background: #c0c0c0;
+            color: black;
+            text-align: center;
+        }
+
+        .window {
+            width: 600px;
+            margin: 50px auto;
+            border: 3px solid black;
+            background: #e0e0e0;
+            box-shadow: 5px 5px black;
+        }
+
+        .title-bar {
+            background: #000080;
+            color: white;
+            padding: 5px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 15px;
+        }
+
+        .playlist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .playlist li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 2px solid black;
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .playlist li:hover {
+            background: #d3d3d3;
+        }
+
+        .album-art {
+            width: 40px;
+            height: 40px;
+            background: grey;
+            border: 2px solid black;
+            margin-left: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background: white;
+            border: 2px solid black;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #d3d3d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">🎵 Blob Beats - Windows 94 Edition</div>
+        <div class="content">
+            <ul class="playlist" id="playlist">
+                <li onclick="playSong(0)">🎵 Zion (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="playSong(1)">🎵 Witcher (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="playSong(2)">🎵 Shibuya (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="playSong(3)">🎵 Trophies (Prod. Kaze) <div class="album-art"></div></li>
+            </ul>
+
+            <div class="controls">
+                <button class="btn" onclick="prevSong()">⏮️ Previous</button>
+                <button class="btn" onclick="toggleShuffle()">🔀 Shuffle</button>
+                <button class="btn" onclick="toggleRepeat()">🔁 Repeat</button>
+                <button class="btn" onclick="nextSong()">⏭️ Next</button>
+            </div>
+
+            <audio id="audioPlayer" controls></audio>
+        </div>
+    </div>
+
+    <script>
+        const player = document.getElementById('audioPlayer');
+        const playlistItems = document.querySelectorAll('.playlist li');
+        let currentIndex = 0;
+        let shuffleMode = false;
+        let repeatMode = "all";
+
+        const songs = [
+            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/_wfEwCdEuIHasQ_XAtmoU0dpPYoFTNjJsHLZnmDfCWE",
+            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/GzjCgR0V5lPHWj37VSV25NbNXoUh0uzkPSWtiR-Y8CU",
+            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/H3pOGpuQiLCXyOXCCoDUsCDg08wVLQtejeshblIY5OE",
+            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/8TMNXyj7ijd4CqvLkJpyTH1zHVjA3IOg6wJ01d4QSo8"
+        ];
+
+        function playSong(index) {
+            currentIndex = index;
+            player.src = songs[currentIndex];
+            player.play();
+        }
+
+        function nextSong() {
+            if (shuffleMode) {
+                playSong(Math.floor(Math.random() * songs.length));
+            } else {
+                playSong((currentIndex + 1) % songs.length);
+            }
+        }
+
+        function prevSong() {
+            playSong(currentIndex > 0 ? currentIndex - 1 : songs.length - 1);
+        }
+
+        function toggleShuffle() {
+            shuffleMode = !shuffleMode;
+        }
+
+        function toggleRepeat() {
+            repeatMode = repeatMode === "all" ? "one" : repeatMode === "one" ? "off" : "all";
+        }
+    </script>
+</body>
+</html>
