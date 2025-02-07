@@ -94,20 +94,20 @@
                 <li onclick="playSong(1)">🎵 Witcher (Prod. Kaze) <div class="album-art"></div></li>
                 <li onclick="playSong(2)">🎵 Shibuya (Prod. Kaze) <div class="album-art"></div></li>
                 <li onclick="playSong(3)">🎵 Trophies (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(5)">🎵 Threes and Sixes (Prod. Kaze)<div class="album-art"></div></li>
-                <li onclick="PlaySong(6)">🎵 Firefly (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(7)">🎵 Deep End (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(8)">🎵 Halo (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(9)">🎵 Heartache (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(10)">🎵 Kojo (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(11)">🎵 Love Hate (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(12)">🎵 Roxanne (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(13)">🎵 Grove St (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(14)">🎵 Finale (Prod. Kaze & Rondavinci) <div class="album-art"></div></li>
-                <li onclick="PlaySong(15)">🎵 Dream Sequence (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(16)">🎵 Colder Nights (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(17)">🎵 Astro (Prod. Kaze) <div class="album-art"></div></li>
-                <li onclick="PlaySong(18)">🎵 Xenon (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(4)">🎵 Threes and Sixes (Prod. Kaze)<div class="album-art"></div></li>
+                <li onclick="PlaySong(5)">🎵 Firefly (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(6)">🎵 Deep End (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(7)">🎵 Halo (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(8)">🎵 Heartache (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(9)">🎵 Kojo (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(10)">🎵 Love Hate (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(11)">🎵 Roxanne (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(12)">🎵 Grove St (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(13)">🎵 Finale (Prod. Kaze & Rondavinci) <div class="album-art"></div></li>
+                <li onclick="PlaySong(14)">🎵 Dream Sequence (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(15)">🎵 Colder Nights (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(16)">🎵 Astro (Prod. Kaze) <div class="album-art"></div></li>
+                <li onclick="PlaySong(17)">🎵 Xenon (Prod. Kaze) <div class="album-art"></div></li>
             </ul>
 
             <div class="controls">
@@ -146,7 +146,7 @@
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/CjMlnYWLj5HW0gDT6psIxE_u1e4GlYcT4AhiOiiqg_4",
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/HwHFVQovTshfqbFh2vc0xm-uSimrz6DjRGALOoeFECM",
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/crqedRYECa3Mcm2raKM4joJqN50xJEIbPnhPe29_Il4",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/bTlTlpfnTZv539WxRSQRelGc04iLlEu8ogH8p3lWi1o",
+            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/bTlTlpfnTZv539WxRSQRelGc04iLlEu8ogH8p3lWi1o"
         ];
 
         function playSong(index) {
