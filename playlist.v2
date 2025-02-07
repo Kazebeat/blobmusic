@@ -50,6 +50,7 @@
             max-height: 440px;
             border: 2px solid black;
             background: white;
+        }
 
         .playlist {
             list-style: none;
@@ -123,20 +124,20 @@
                     <li onclick="playSong(1)">🎵 Witcher (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="playSong(2)">🎵 Shibuya (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="playSong(3)">🎵 Trophies (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(4)">🎵 Threes and Sixes (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(5)">🎵 Firefly (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(6)">🎵 Deep End (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(7)">🎵 Halo (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(8)">🎵 Heartache (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(9)">🎵 Kojo (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(10)">🎵 Love Hate (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(11)">🎵 Roxanne (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(12)">🎵 Grove St (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(13)">🎵 Finale (Prod. Kaze & Rondavinci) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(14)">🎵 Dream Sequence (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(15)">🎵 Colder Nights (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(16)">🎵 Astro (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(17)">🎵 Xenon (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(4)">🎵 Threes and Sixes (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(5)">🎵 Firefly (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(6)">🎵 Deep End (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(7)">🎵 Halo (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(8)">🎵 Heartache (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(9)">🎵 Kojo (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(10)">🎵 Love Hate (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(11)">🎵 Roxanne (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(12)">🎵 Grove St (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(13)">🎵 Finale (Prod. Kaze & Rondavinci) <div class="album-art"></div></li>
+                    <li onclick="playSong(14)">🎵 Dream Sequence (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(15)">🎵 Colder Nights (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(16)">🎵 Astro (Prod. Kaze) <div class="album-art"></div></li>
+                    <li onclick="playSong(17)">🎵 Xenon (Prod. Kaze) <div class="album-art"></div></li>
                 </ul>
             </div>
         </div>
@@ -144,7 +145,7 @@
 
     <script>
         const player = document.getElementById('audioPlayer');
-        const nowPlaying = document.getElementbyId('nowPlaying');
+        const nowPlaying = document.getElementById('nowPlaying');
         const playlistItems = document.querySelectorAll('.playlist li');
         let currentIndex = 0;
         let shuffleMode = false;
@@ -175,15 +176,22 @@
             currentIndex = index;
             player.src = songs[currentIndex];
             player.play();
+
+            // Update now playing title
+            nowPlaying.textContent = 🎵 Now Playing: ${playlistItems[currentIndex].textContent.trim()}`;
         }
 
         function nextSong() {
             if (shuffleMode) {
                 playSong(Math.floor(Math.random() * songs.length));
             } else {
+                if (repeatMode === "one") {
                 playSong((currentIndex + 1) % songs.length);
+            } else if (currentIndex + 1 < songs.length) {
+                playSong(currentIndex + 1);
             }
         }
+    }
 
         function prevSong() {
             playSong(currentIndex > 0 ? currentIndex - 1 : songs.length - 1);
