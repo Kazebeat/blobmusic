@@ -124,8 +124,10 @@
 
     <!-- Controls -->
     <div class="controls">
+        <button class="btn" id="prevBtn">⏮️ Previous</button>
         <button class="btn" id="shuffleBtn">🔀 Shuffle OFF</button>
         <button class="btn" id="repeatBtn">🔁 Repeat All</button>
+        <button class="btn" id="nextBtn">⏭️ Next</button>
         <div class="volume-control">
             🔊 <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
         </div>
@@ -162,6 +164,8 @@
         const shuffleBtn = document.getElementById('shuffleBtn');
         const repeatBtn = document.getElementById('repeatBtn');
         const volumeSlider = document.getElementById('volumeSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
         let currentIndex = 0;
         let shuffleMode = false;
@@ -238,6 +242,12 @@
         shuffleBtn.addEventListener('click', toggleShuffle);
         repeatBtn.addEventListener('click', toggleRepeat);
         volumeSlider.addEventListener('input', updateVolume);
+        prevBtn.addEventListener('click', playPreviousSong);
+        nextBtn.addEventListener('click', playNextSong);
+
+        [...playlistItems].forEach((item, index) => {
+            item.addEventListener('click', () => playSong(index));
+        });
 
         playSong(0);
     </script>
