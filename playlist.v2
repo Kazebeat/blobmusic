@@ -152,16 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let shuffleMode = false;
         let repeatMode = "all";
 
-        window.playSong = function function(index) {
-            currentIndex = index;
-            player.src = songs[currentIndex];
-            player.play();
-
-            // Update now playing title
-            nowPlaying.textContent = 🎵 Now Playing: ${playlistItems[currentIndex].textContent.trim()}`;
-        };
-
-
+// move 'songs' array before playSong
         const songs = [
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/_wfEwCdEuIHasQ_XAtmoU0dpPYoFTNjJsHLZnmDfCWE",
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/GzjCgR0V5lPHWj37VSV25NbNXoUh0uzkPSWtiR-Y8CU",
@@ -183,7 +174,14 @@ document.addEventListener("DOMContentLoaded", function() {
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/bTlTlpfnTZv539WxRSQRelGc04iLlEu8ogH8p3lWi1o"
         ]
 
-        
+        window.playSong = function(index) {
+            currentIndex = index;
+            player.src = songs[currentIndex];
+            player.play();
+
+            // Update now playing title
+            nowPlaying.textContent = 🎵 Now Playing: ${playlistItems[currentIndex].textContent.trim()}`;
+        };
      });
 
         function nextSong() {
