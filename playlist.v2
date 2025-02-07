@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blob Beats - Windows 94 Edition</title>
+    <title>Blob Beats</title>
     <style>
         @font-face {
             font-family: 'Pixelated';
@@ -19,6 +19,7 @@
 
         .window {
             width: 600px;
+            height: 600px;
             margin: 50px auto;
             border: 3px solid black;
             background: #e0e0e0;
@@ -40,12 +41,13 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            gap: 15px; 
         }
 
         .playlist-container {
             flex-grow: 1;
             overflow-y: auto;
-            max-height: 220px;
+            max-height: 440px;
             border: 2px solid black;
             background: white;
 
@@ -83,7 +85,7 @@
             display: flex;
             justify-content: center;
             gap: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .btn {
@@ -92,9 +94,15 @@
             padding: 5px;
             cursor: pointer;
         }
-
+        
         .btn:hover {
             background: #d3d3d3;
+        }
+
+        .audio-controls {
+            display: flex; 
+            justify-content: center;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -102,20 +110,20 @@
     <div class="window">
         <div class="title-bar">🎵 Blob Beats </div>
         <div class="content">
+            <audio id="audioPlayer" controls class="audio-controls"></audio>
             <div class="controls">
                 <button class="btn" onclick="prevSong()">⏮️ Previous</button>
                 <button class="btn" onclick="toggleShuffle()">🔀 Shuffle</button>
                 <button class="btn" onclick="toggleRepeat()">🔁 Repeat</button>
                 <button class="btn" onclick="nextSong()">⏭️ Next</button>
             </div>
-            <audio id="audioPlayer" controls></audio>
             <div class="playlist-container">
                 <ul class="playlist" id="playlist">
                     <li onclick="playSong(0)">🎵 Zion (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="playSong(1)">🎵 Witcher (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="playSong(2)">🎵 Shibuya (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="playSong(3)">🎵 Trophies (Prod. Kaze) <div class="album-art"></div></li>
-                    <li onclick="PlaySong(4)">🎵 Threes and Sixes (Prod. Kaze)<div class="album-art"></div></li>
+                    <li onclick="PlaySong(4)">🎵 Threes and Sixes (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="PlaySong(5)">🎵 Firefly (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="PlaySong(6)">🎵 Deep End (Prod. Kaze) <div class="album-art"></div></li>
                     <li onclick="PlaySong(7)">🎵 Halo (Prod. Kaze) <div class="album-art"></div></li>
