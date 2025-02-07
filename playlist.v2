@@ -108,7 +108,7 @@
 </head>
 <body>
     <div class="window">
-        <div class="title-bar">🎵 Blob Beats </div>
+        <div class="title-bar" id="nowPlaying">🎵 Blob Beats </div>
         <div class="content">
             <audio id="audioPlayer" controls class="audio-controls"></audio>
             <div class="controls">
@@ -144,6 +144,7 @@
 
     <script>
         const player = document.getElementById('audioPlayer');
+        const nowPlaying = document.getElementbyId('nowPlaying');
         const playlistItems = document.querySelectorAll('.playlist li');
         let currentIndex = 0;
         let shuffleMode = false;
