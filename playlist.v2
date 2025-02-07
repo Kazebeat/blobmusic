@@ -144,7 +144,7 @@
     </div>
 
     <script>
-document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
         const player = document.getElementById('audioPlayer');
         const nowPlaying = document.getElementById('nowPlaying');
         const playlistItems = document.querySelectorAll('.playlist li');
@@ -152,61 +152,50 @@ document.addEventListener("DOMContentLoaded", function() {
         let shuffleMode = false;
         let repeatMode = "all";
 
-// move 'songs' array before playSong
-        const songs = [
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/_wfEwCdEuIHasQ_XAtmoU0dpPYoFTNjJsHLZnmDfCWE",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/GzjCgR0V5lPHWj37VSV25NbNXoUh0uzkPSWtiR-Y8CU",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/H3pOGpuQiLCXyOXCCoDUsCDg08wVLQtejeshblIY5OE",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/8TMNXyj7ijd4CqvLkJpyTH1zHVjA3IOg6wJ01d4QSo8",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/by11RgsmdcJZOuF-RrZwuUWwidNqUJeamgIELkJHTeo",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/Ee8OGo-fx9IpKXMs6KrzbUu51Q3NjWSwTXU81pYia1o",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/Yoj5O3VOrQ3eTwPriahIpTk5OiyxvejPeXHOlpw_W8s",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/cV4-BMk6K6kMqUBVEocwZnjMZ0NgU2EZA2mZfHIrUiA",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/VU-TIyOCspN7bmmrDT4X_EBVqfgBzcSBoigZeaHdLd0",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/aq2kMEi05HCdlAEkacuq7tdDeX8TbvNxQM9W8nuFHNg",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/ceT0Ij8zUY7kxRC5528kK_fFOvkjBPIYJQhtBo0yrj0",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/H9i9ovGD4Lq9z3DhZ6Xak2W41KPt7XK2kMkyBk3Vufw",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/OVeUQSdNZg7HgwaXFwgpJF591QljY-xb5jCfv13gGrE",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/hK8_Q9FQiSZUelN7_7ZwrlM50CbrNsbgFnX_wsGaHso",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/CjMlnYWLj5HW0gDT6psIxE_u1e4GlYcT4AhiOiiqg_4",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/HwHFVQovTshfqbFh2vc0xm-uSimrz6DjRGALOoeFECM",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/crqedRYECa3Mcm2raKM4joJqN50xJEIbPnhPe29_Il4",
-            "https://aggregator.walrus-testnet.walrus.space/v1/blobs/bTlTlpfnTZv539WxRSQRelGc04iLlEu8ogH8p3lWi1o"
-        ]
-
-        window.playSong = function(index) {
-            currentIndex = index;
-            player.src = songs[currentIndex];
-            player.play();
-
-            // Update now playing title
-            nowPlaying.textContent = 🎵 Now Playing: ${playlistItems[currentIndex].textContent.trim()}`;
-        };
-     });
-
-        function nextSong() {
-            if (shuffleMode) {
-                playSong(Math.floor(Math.random() * songs.length));
-            } else {
-                if (repeatMode === "one") {
-                playSong((currentIndex + 1) % songs.length);
-            } else if (currentIndex + 1 < songs.length) {
-                playSong(currentIndex + 1);
+        playlist.addEventListener("click", function (event) {
+            if (event.target.tagName === "LI") {
+                playSong(event.target);
             }
+        });
+        
+        function playSong(selectedSong) {
+            const songUrl = selectedSong.getAttribute("data-src");
+            if (!songUrl) return;
+        
+            currentIndex = Array.from(playlist.children).indexOf(selectedSong);
+            player.src = songUrl;
+            player.play();
+            nowPlaying.textContent = `🎵 Now Playing: ${selectedSong.textContent.trim()}`;
         }
-    }
-
+        
+        function nextSong() {
+            let items = Array.from(playlist.children);
+            currentIndex = shuffleMode ? Math.floor(Math.random() * items.length) : (currentIndex + 1) % items.length;
+            playSong(items[currentIndex]);
+        }
+        
         function prevSong() {
-            playSong(currentIndex > 0 ? currentIndex - 1 : songs.length - 1);
+            let items = Array.from(playlist.children);
+            currentIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+            playSong(items[currentIndex]);
         }
-
+        
         function toggleShuffle() {
             shuffleMode = !shuffleMode;
         }
-
+        
         function toggleRepeat() {
             repeatMode = repeatMode === "all" ? "one" : repeatMode === "one" ? "off" : "all";
         }
+        
+        player.addEventListener("ended", function () {
+            if (repeatMode === "one") {
+                playSong(playlist.children[currentIndex]);
+            } else if (repeatMode === "all") {
+                nextSong();
+            }
+        });
+    });
     </script>
 </body>
 </html>
