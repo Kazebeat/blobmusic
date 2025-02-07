@@ -144,12 +144,23 @@
     </div>
 
     <script>
+document.addEventListener("DOMContentLoaded", function() {
         const player = document.getElementById('audioPlayer');
         const nowPlaying = document.getElementById('nowPlaying');
         const playlistItems = document.querySelectorAll('.playlist li');
         let currentIndex = 0;
         let shuffleMode = false;
         let repeatMode = "all";
+
+        window.playSong = function function(index) {
+            currentIndex = index;
+            player.src = songs[currentIndex];
+            player.play();
+
+            // Update now playing title
+            nowPlaying.textContent = 🎵 Now Playing: ${playlistItems[currentIndex].textContent.trim()}`;
+        };
+
 
         const songs = [
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/_wfEwCdEuIHasQ_XAtmoU0dpPYoFTNjJsHLZnmDfCWE",
@@ -170,16 +181,10 @@
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/HwHFVQovTshfqbFh2vc0xm-uSimrz6DjRGALOoeFECM",
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/crqedRYECa3Mcm2raKM4joJqN50xJEIbPnhPe29_Il4",
             "https://aggregator.walrus-testnet.walrus.space/v1/blobs/bTlTlpfnTZv539WxRSQRelGc04iLlEu8ogH8p3lWi1o"
-        ];
+        ]
 
-        function playSong(index) {
-            currentIndex = index;
-            player.src = songs[currentIndex];
-            player.play();
-
-            // Update now playing title
-            nowPlaying.textContent = 🎵 Now Playing: ${playlistItems[currentIndex].textContent.trim()}`;
-        }
+        
+     });
 
         function nextSong() {
             if (shuffleMode) {
