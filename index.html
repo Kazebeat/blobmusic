@@ -183,6 +183,16 @@
         const player = document.getElementById('audioPlayer');
         const nowPlaying = document.getElementById('nowPlaying');
         const playlistItems = document.querySelectorAll('.playlist li');
+        
+        playlistItems.forEach((item) => {
+        const artworkUrl = item.getAttribute("data-artwork");
+        const albumArtDiv = item.querySelector(".album-art");
+        
+        if (artworkUrl) {
+            albumArtDiv.style.backgroundImage = `url('${artworkUrl}')`;
+            }
+        }
+        
         let currentIndex = 0;
         let shuffleMode = false;
         let repeatMode = "all";
