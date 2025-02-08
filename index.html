@@ -179,20 +179,23 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const player = document.getElementById('audioPlayer');
-        const nowPlaying = document.getElementById('nowPlaying');
-        const playlistItems = document.querySelectorAll('.playlist li');
-        
-        playlistItems.forEach((item) => {
+    document.addEventListener("DOMContentLoaded", function () {
+    const playlistItems = document.querySelectorAll('.playlist li');
+
+    playlistItems.forEach((item) => {
         const artworkUrl = item.getAttribute("data-artwork");
         const albumArtDiv = item.querySelector(".album-art");
         
         if (artworkUrl) {
             albumArtDiv.style.backgroundImage = `url('${artworkUrl}')`;
-            }
         }
-        
+    });
+});
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const player = document.getElementById('audioPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const playlistItems = document.querySelectorAll('.playlist li');
         let currentIndex = 0;
         let shuffleMode = false;
         let repeatMode = "all";
@@ -212,9 +215,6 @@
             player.src = songUrl;
             player.play();
             nowPlaying.textContent = `🎵 Now Playing: ${selectedSong.textContent.trim()}`;
-
-            //update album artwork
-            document.querySelector(".album-art").style.backgroundImage = `url('${artworkUrl}')`;
         }
         
         function nextSong() {
